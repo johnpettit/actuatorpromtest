@@ -13,6 +13,8 @@ public class LoginController {
     @PostMapping("/login")
     @ResponseBody
     public Greeting sayHello(@RequestParam(name="name", required=false, defaultValue="Stranger") String name) {
-        return new Greeting(1, String.format(template, name));
+        LoginCounter lc = new LoginCounter();
+        lc.increment();
+        return new Greeting((long) lc.getCount(), String.format(template, name));
     }
 }
