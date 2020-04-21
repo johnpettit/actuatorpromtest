@@ -1,20 +1,20 @@
 package com.greenwavesystems.actuatorpromtest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.greenwavesystems.actuatorpromtest.LoginCounterService;
 
 @Controller
-public class LoginController {
+public class HomeController {
 
     private static final String template = "Hello, %s!";
 
-    @PostMapping("/login")
+    @GetMapping("/")
     @ResponseBody
     public Greeting sayHello(@RequestParam(name="name", required=false, defaultValue="Stranger") String name) {
-
-        return new Greeting(1, String.format(template, name));
+        LoginCounter lc = new LoginCounter();
+        return new Greeting((long) lc.getCount(), String.format(template, name));
     }
 }
